@@ -20,11 +20,11 @@ jobs:
     steps:
       # 步骤1: 检出你的项目代码
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # 步骤2: 设置Python环境。PlatformIO是基于Python的，所以需要它。
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.9'
 
@@ -39,7 +39,7 @@ jobs:
 
       # 步骤5: 上传编译成品！这是我们最终下载bin文件的关键
       - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           # 给成品文件压缩包命名，你可以自定义
           name: Makita_obi_firmware
