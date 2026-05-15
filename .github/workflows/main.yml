@@ -39,7 +39,7 @@ jobs:
 
       # 步骤5: 上传编译成品！这是我们最终下载bin文件的关键
       - name: Upload Artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           # 给成品文件压缩包命名，你可以自定义
           name: Makita_obi_firmware
