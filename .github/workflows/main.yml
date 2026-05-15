@@ -1,0 +1,47 @@
+# 工作流的名称，将在Actions页面显示
+name: Build ESP32-C3 Firmware
+
+# 触发条件：
+# 1. workflow_dispatch: 允许你通过GitHub网页手动触发编译
+# 2. push: 当你向main分支推送代码时，会自动触发编译（可选）
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]  # 如果你想自动编译，保留这行；如果只想手动，可以删除它
+
+# 所有需要执行的任务（jobs）
+jobs:
+  # 定义一个名为 build 的任务
+  build:
+    # 任务运行在最新版的Ubuntu虚拟环境上
+    runs-on: ubuntu-latest
+
+    # 任务包含的步骤列表
+    steps:
+      # 步骤1: 检出你的项目代码
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 步骤2: 设置Python环境。PlatformIO是基于Python的，所以需要它。
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      # 步骤3: 安装PlatformIO核心工具（用于编译的引擎）
+      - name: Install PlatformIO
+        run: pip install -U platformio
+
+      # 步骤4: 执行编译！这里指定了编译环境为 esp32c3_web
+      # 如果你需要编译其他环境，可以修改 -e 后面的参数
+      - name: Build Firmware
+        run: pio run -e esp32c3_web
+
+      # 步骤5: 上传编译成品！这是我们最终下载bin文件的关键
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          # 给成品文件压缩包命名，你可以自定义
+          name: Makita_obi_firmware
+          # 指定要打包的路径，这是PlatformIO默认的编译输出目录
+          path: .pio/build/esp32c3_web/firmware.bin
