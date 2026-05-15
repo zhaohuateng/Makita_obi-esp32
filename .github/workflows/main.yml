@@ -44,4 +44,4 @@ jobs:
           # 给成品文件压缩包命名，你可以自定义
           name: Makita_obi_firmware
           # 指定要打包的路径，这是PlatformIO默认的编译输出目录
-          path: .pio/build/esp32c3_web/firmware.bin
+          path: .pio/build/esp32_web/firmware.bin
