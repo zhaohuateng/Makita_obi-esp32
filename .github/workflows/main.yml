@@ -35,7 +35,7 @@ jobs:
       # 步骤4: 执行编译！这里指定了编译环境为 esp32c3_web
       # 如果你需要编译其他环境，可以修改 -e 后面的参数
       - name: Build Firmware
-        run: pio run -e esp32_web
+        run: pio run -e esp32
 
       # 步骤5: 上传编译成品！这是我们最终下载bin文件的关键
       - name: Upload Artifact
